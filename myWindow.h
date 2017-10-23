@@ -14,7 +14,7 @@ public:
 
 private:
     SDL_Window* _window;
-    bool closeWindow, mouseClick;
+    bool closeWindow, mouseClick, repaint;
 
     screen* _paintScreen;
 

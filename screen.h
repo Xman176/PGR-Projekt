@@ -9,6 +9,13 @@
 
 #include "rasterObject.h"
 
+typedef struct Pixel{
+    unsigned char R;
+    unsigned char G;
+    unsigned char B;
+    unsigned char A;
+}Pixel;
+
 
 class screen{
 public:

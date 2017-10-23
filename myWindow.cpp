@@ -17,6 +17,7 @@ myWindow::myWindow(int width, int height) : _paintScreen(nullptr){
 
     closeWindow = false;
     mouseClick = false;
+    repaint = true;
 
     _paintScreen = new screen(_render, width, height);
     //_paintScreen.SetRenderer();
@@ -34,7 +35,9 @@ myWindow::~myWindow(){
 void myWindow::Loop(){
 
     while(!closeWindow){
-        Rendering();
+        if(repaint)
+            Rendering();
+
         Input();
     }
 
@@ -42,6 +45,7 @@ void myWindow::Loop(){
 
 void myWindow::Input(){
     SDL_Event ev;
+    repaint = false;
 
     while(SDL_PollEvent(&ev) != 0){
         switch(ev.type){
@@ -50,8 +54,10 @@ void myWindow::Input(){
                 break;
 
             case SDL_WINDOWEVENT:
-                if(ev.window.event == SDL_WINDOWEVENT_RESIZED)
+                if(ev.window.event == SDL_WINDOWEVENT_RESIZED){
                         _paintScreen->ScreenSize(ev.window.data1, ev.window.data2);
+                        repaint = true;
+                }
                 break;
 
             case SDL_KEYDOWN:
@@ -71,6 +77,7 @@ void myWindow::Input(){
                     default:
                         break;
                 }
+                repaint = true;
                 break;
 
             case SDL_MOUSEWHEEL:
@@ -78,11 +85,15 @@ void myWindow::Input(){
                     _paintScreen->Zoom(1);
                 else if(ev.wheel.y == -1)
                     _paintScreen->Zoom(-1);
+
+                repaint = true;
                 break;
 
             case SDL_MOUSEMOTION:
-                if(mouseClick)
+                if(mouseClick){
                     _paintScreen->ChangeAngle(ev.motion.xrel, ev.motion.yrel);
+                    repaint = true;
+                }
                 break;
 
             case SDL_MOUSEBUTTONDOWN:

@@ -336,15 +336,15 @@
 	"begin_code.h"
 	"close_code.h"
 
-1507657384 c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.h
+1508757075 c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.h
 	<iostream>
 	<SDL2/SDL.h>
 	"screen.h"
 
-1507838004 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
+1508757070 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
 	"myWindow.h"
 
-1508259888 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
+1508755397 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
 	<iostream>
 	<SDL2/SDL.h>
 	<cstring>
