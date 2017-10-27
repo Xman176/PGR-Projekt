@@ -30,16 +30,21 @@ public:
     void CleanRenderer();
     void PaintBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     void PaintObject();
-    void PaintTriangle(point *top, point *left, point *right, point *normalVec);
     void Show();
 
 
 private:
+    void SortTrianglPoint(trianglePoints* oneTriangle);
+    void PaintTriangle(point *normalVec);
+
+
     SDL_Renderer* _renderer;
 
     rasterObject myObject;
 
     int width, height;
+
+    point *top, *left, *right;
 
     int viewPosX, viewPosY;
     double zoom;

@@ -341,17 +341,17 @@
 	<SDL2/SDL.h>
 	"screen.h"
 
-1508757070 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
+1508773600 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
 	"myWindow.h"
 
-1508755397 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
+1509098014 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
 	<iostream>
 	<SDL2/SDL.h>
 	<cstring>
 	<math.h>
 	"rasterObject.h"
 
-1508261872 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
+1509097863 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
 	"screen.h"
 	<math.h>
 
@@ -360,6 +360,6 @@
 	<cstdlib>
 	<math.h>
 
-1508240980 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
+1509025662 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
 	"rasterObject.h"
 

@@ -43,24 +43,27 @@ void myWindow::Loop(){
 
 }
 
+/*Funkce pro kontorlu vstupu
+*/
 void myWindow::Input(){
     SDL_Event ev;
     repaint = false;
 
+    //Kontorla a dekodovani prichozi udalosti z mysi nebo klavesnice
     while(SDL_PollEvent(&ev) != 0){
         switch(ev.type){
-            case SDL_QUIT:
+            case SDL_QUIT: //Uzavreni okna pomoci krizku
                 closeWindow = true;
                 break;
 
             case SDL_WINDOWEVENT:
-                if(ev.window.event == SDL_WINDOWEVENT_RESIZED){
+                if(ev.window.event == SDL_WINDOWEVENT_RESIZED){ //Udalost zmeny velikosti okna
                         _paintScreen->ScreenSize(ev.window.data1, ev.window.data2);
                         repaint = true;
                 }
                 break;
 
-            case SDL_KEYDOWN:
+            case SDL_KEYDOWN: //Udalost zmacknute klavesy
                 switch(ev.key.keysym.sym){
                     case SDLK_LEFT:
                         _paintScreen->Move(-1, 0);
@@ -80,7 +83,7 @@ void myWindow::Input(){
                 repaint = true;
                 break;
 
-            case SDL_MOUSEWHEEL:
+            case SDL_MOUSEWHEEL: //Udalost otoceni koleckem pro zvetseni objektu
                 if(ev.wheel.y == 1)
                     _paintScreen->Zoom(1);
                 else if(ev.wheel.y == -1)
@@ -89,7 +92,7 @@ void myWindow::Input(){
                 repaint = true;
                 break;
 
-            case SDL_MOUSEMOTION:
+            case SDL_MOUSEMOTION: //Udalost pohybu mysi
                 if(mouseClick){
                     _paintScreen->ChangeAngle(ev.motion.xrel, ev.motion.yrel);
                     repaint = true;
@@ -107,9 +110,6 @@ void myWindow::Input(){
                 break;
         }
     }
-
-    /*std::cout << "Event type num:" << ev.type << "  ---  " << ev.text.text;
-    std::cin.ignore();*/
 
 }
 

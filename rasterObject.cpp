@@ -1,7 +1,7 @@
 #include "rasterObject.h"
 
 rasterObject::rasterObject(){
- /*   pointCount = 12;
+    pointCount = 12;
 
     points = new point[pointCount];
 
@@ -41,8 +41,8 @@ rasterObject::rasterObject(){
     triangle[17] = {&points[0], &points[1], &points[7]};
     triangle[18] = {&points[8], &points[9], &points[3]};
     triangle[19] = {&points[0], &points[8], &points[4]};
-*/
-    pointCount = 6;
+
+/*    pointCount = 6;
 
     points = new point[pointCount];
 
@@ -64,7 +64,7 @@ rasterObject::rasterObject(){
     triangle[5] = {&points[5], &points[2], &points[1]};
     triangle[6] = {&points[5], &points[3], &points[2]};
     triangle[7] = {&points[5], &points[0], &points[3]};
-
+*/
 
    // std::cout << "Value: " << points[6].x << " -- " << points[6].y << " -- " << points[6].z << std::endl;
    // std::cout << "Trian: " << triangle[0].a.x << " -- " << triangle[0].a.y << " -- " << triangle[0].a.z << std::endl;
