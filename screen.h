@@ -9,13 +9,6 @@
 
 #include "rasterObject.h"
 
-typedef struct Pixel{
-    unsigned char R;
-    unsigned char G;
-    unsigned char B;
-    unsigned char A;
-}Pixel;
-
 
 class screen{
 public:
@@ -47,7 +40,6 @@ private:
     point *top, *left, *right;
 
     int viewPosX, viewPosY;
-    double zoom;
 
     float *zBuffer;
 };

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <math.h>
+#include <string>
+#include <fstream>
 
 typedef struct point{
     float x;
@@ -27,9 +29,9 @@ public:
     trianglePoints* GetTriangl(int position);
     void GetNormal(trianglePoints* triangle, point* normalVec);
 
-
     void RotateX(float changeAngle);
     void RotateY(float changeAngle);
+    void Zoom(float zoomNumber);
 
 
 private:

@@ -1,87 +1,73 @@
 #include "rasterObject.h"
 
 rasterObject::rasterObject(){
-    pointCount = 12;
+    pointCount = 0;
+
+    std::ifstream objectFile;
+
+    //prozatimni cteni ze souboru
+    objectFile.open("tetrahedron.ply");
+    std::string line;
+
+    while(getline(objectFile, line)){
+        if(line.find("element vertex") != std::string::npos)
+            pointCount = atoi(&line[14]);
+        else if(line.find("element face") != std::string::npos)
+            trianCount = atoi(&line[12]);
+        else if(line.find("end_header") != std::string::npos)
+            break;
+    }
+
+    //std::cout << "Point count: "<< pointCount << std::endl;
+    //std::cout << "Trian count: "<< trianCount << std::endl;
 
     points = new point[pointCount];
+    for(int i = 0; i < pointCount; i++){
+        getline(objectFile, line);
+        int position = 0;
+        points[i].x = atof(&line[position]);
 
-    points[0] = {0, -0.525731, 0.850651};
-    points[1] = {0.850651, 0, 0.525731};
-    points[2] = {0.850651, 0, -0.525731};
-    points[3] = {-0.850651, 0, -0.525731};
-    points[4] = {-0.850651, 0, 0.525731};
-    points[5] = {-0.525731, 0.850651, 0};
-    points[6] = {0.525731, 0.850651, 0};
-    points[7] = {0.525731, -0.850651, 0};
-    points[8] = {-0.525731, -0.850651, 0};
-    points[9] = {0, -0.525731, -0.850651};
-    points[10] = {0, 0.525731, -0.850651};
-    points[11] = {0, 0.525731, 0.850651};
+        for(; line[position ++] != ' '; )
+            ;
 
-    trianCount = 20;
+        points[i].y = atof(&line[position]);
 
-    triangle = new trianglePoints[trianCount];
-    triangle[0] = {&points[6], &points[2], &points[1]};
-    triangle[1] = {&points[2], &points[7], &points[1]};
-    triangle[2] = {&points[5], &points[4], &points[3]};
-    triangle[3] = {&points[8], &points[3], &points[4]};
-    triangle[4] = {&points[11], &points[5], &points[6]};
-    triangle[5] = {&points[10], &points[6], &points[5]};
-    triangle[6] = {&points[2], &points[10], &points[9]};
-    triangle[7] = {&points[3], &points[9], &points[10]};
-    triangle[8] = {&points[9], &points[8], &points[7]};
-    triangle[9] = {&points[0], &points[7], &points[8]};
-    triangle[10] = {&points[1], &points[0], &points[11]};
-    triangle[11] = {&points[4], &points[11], &points[0]};
-    triangle[12] = {&points[10], &points[2], &points[6]};
-    triangle[13] = {&points[11], &points[6], &points[1]};
-    triangle[14] = {&points[10], &points[5], &points[3]};
-    triangle[15] = {&points[11], &points[4], &points[5]};
-    triangle[16] = {&points[9], &points[7], &points[2]};
-    triangle[17] = {&points[0], &points[1], &points[7]};
-    triangle[18] = {&points[8], &points[9], &points[3]};
-    triangle[19] = {&points[0], &points[8], &points[4]};
+        for(; line[position ++] != ' '; )
+            ;
 
-/*    pointCount = 6;
+        points[i].z = atof(&line[position]);
+    }
 
-    points = new point[pointCount];
-
-    points[0] = {1, 0, 0};
-    points[1] = {0, -1, 0};
-    points[2] = {-1, 0, 0};
-    points[3] = {0, 1, 0};
-    points[4] = {0, 0, 1};
-    points[5] = {0, 0, -1};
-
-    trianCount = 8;
 
     triangle = new trianglePoints[trianCount];
-    triangle[0] = {&points[4], &points[0], &points[1]};
-    triangle[1] = {&points[4], &points[1], &points[2]};
-    triangle[2] = {&points[4], &points[2], &points[3]};
-    triangle[3] = {&points[4], &points[3], &points[0]};
-    triangle[4] = {&points[5], &points[1], &points[0]};
-    triangle[5] = {&points[5], &points[2], &points[1]};
-    triangle[6] = {&points[5], &points[3], &points[2]};
-    triangle[7] = {&points[5], &points[0], &points[3]};
-*/
+    for(int i = 0; i < trianCount; i++){
+        getline(objectFile, line);
+        if(line[0] == '4')
+            std::cout << "error" << std::endl;
 
-   // std::cout << "Value: " << points[6].x << " -- " << points[6].y << " -- " << points[6].z << std::endl;
-   // std::cout << "Trian: " << triangle[0].a.x << " -- " << triangle[0].a.y << " -- " << triangle[0].a.z << std::endl;
-   //std::cout << "Count: " << GetTrianCount() << std::endl;
-/*
-   pointCount = 3;
+        int position = 0;
+        int value = 0;
 
-   points = new point[pointCount];
+        for(; line[position ++] != ' '; )
+            ;
 
-    points[0] = {0, -1, 0};
-    points[1] = {1, 2, 0};
-    points[2] = {-1, -2, 0};
+        value = atoi(&line[position]);
+        triangle[i].a = &points[value];
 
-        trianCount = 1;
+        for(; line[position ++] != ' '; )
+            ;
 
-    triangle = new trianglePoints[trianCount];
-    triangle[0] = {&points[0], &points[1], &points[2]};*/
+        value = atoi(&line[position]);
+        triangle[i].b = &points[value];
+
+        for(; line[position ++] != ' '; )
+            ;
+
+        value = atoi(&line[position]);
+        triangle[i].c = &points[value];
+    }
+
+    objectFile.close();
 }
 
 rasterObject::~rasterObject(){
@@ -123,6 +109,14 @@ void rasterObject::RotateX(float changeAngle){
         points[i].z = z * cosAngle + x * sinAngle;
     }
 
+}
+
+void rasterObject::Zoom(float zoomNumber){
+    for(int i = 0; i < pointCount; i++){
+        points[i].x *= zoomNumber;
+        points[i].y *= zoomNumber;
+        points[i].z *= zoomNumber;
+    }
 }
 
 void rasterObject::GetNormal(trianglePoints* triangle, point* normalVec){

@@ -13,9 +13,6 @@ screen::screen(SDL_Renderer* _ren, int w, int h){
     viewPosX = width / 2;
     viewPosY = height / 2;
 
-    //nastaveni zakladniho zvetseni
-    zoom = 1.0;
-
     //alokace zBufferu
     zBuffer = new float[width*height];
 }
@@ -42,7 +39,8 @@ void screen::Move(int x, int y){
 }
 
 void screen::Zoom(int x){
-    zoom += x*10;
+    myObject.Zoom(1.0 + x/10.0);
+
 }
 
 void screen::ChangeAngle(int moveX, int moveY){
@@ -53,7 +51,6 @@ void screen::ChangeAngle(int moveX, int moveY){
         myObject.RotateY(moveY / 100.0);
 
 }
-
 
 void screen::CleanRenderer(){
     SDL_RenderClear(_renderer);
@@ -153,6 +150,7 @@ void screen::PaintObject(){
     }
 }
 
+
 void screen::PaintTriangle(point *normalVec){
 
     //velikost tohoto vektoru staci spocitat pri inicializaci obrazce
@@ -164,26 +162,19 @@ void screen::PaintTriangle(point *normalVec){
     SDL_SetRenderDrawColor(_renderer, grayColor, grayColor, grayColor, 255);
 
     //Implementace vykresleni trojuhelniku pomoci DDA
-    double leftX = top->x * zoom + viewPosX;
+    double leftX = top->x + viewPosX;
     double rightX = leftX;
 
     //promenna pro oznaceni vykreslovaneho radku
-    int paintLine = top->y * zoom + viewPosY;
+    int paintLine = top->y + viewPosY;
 
     //Vypocet smernice pro 3. a 4. kvadrant
     double leftDirection = (double)(left->x - top->x) / (double)(left->y - top->y);
     double rightDirection = (double)(right->x - top->x) / (double)(right->y - top->y);
 
     //vypocet radku leveho a praveho radku
-    int leftPointLine = left->y * zoom + viewPosY;
-    int rightPointLine = right->y * zoom + viewPosY;
-
-    //promenne pro vypocet hladiny z
-    double leftZDirection = ((left->z - top->z)*zoom)/(leftPointLine - paintLine);
-    double rightZDirection = ((right->z - top->z)*zoom)/(rightPointLine - paintLine);
-
-    double leftZ = top->z * zoom;
-    double rightZ = leftZ;
+    int leftPointLine = left->y + viewPosY;
+    int rightPointLine = right->y + viewPosY;
 
     //std::cout << "Paint line: " << paintLine << "  --  " << leftPointLine << "  --  " << rightPointLine << "  x  " << leftDirection << "  --  " << rightDirection << std::endl;
     //std::cout << "Point top: " << top->x * zoom + viewPosX << "  --  " << top->y * zoom + viewPosY << "  Left:  " << left->x * zoom + viewPosX << "  --  " << left->y * zoom + viewPosY << "  RIGHT:  " << right->x * zoom + viewPosX << "  --  " << right->y * zoom + viewPosY << std::endl;
@@ -194,82 +185,42 @@ void screen::PaintTriangle(point *normalVec){
     //std::cout << "totalMove " << (leftPointLine - paintLine)*leftZDirection << "  --  " << (rightPointLine - paintLine)*rightZDirection << std::endl;
 
     while (paintLine < leftPointLine && paintLine < rightPointLine){
-        int lineInZBuffer = paintLine * width;
-        double z, zDirection;
-
         if(leftX < rightX){
-            zDirection = (rightZ - leftZ)/(rightX - leftX);
-            z = leftZ - zDirection;
             for(int i = leftX; i <= rightX; i++){
-                if(zBuffer[lineInZBuffer + i] < z){
-                    SDL_RenderDrawPoint(_renderer ,i, paintLine);
-                    zBuffer[lineInZBuffer + i] = z;
-                }
-                z += zDirection;
+                SDL_RenderDrawPoint(_renderer ,i, paintLine);
             }
-            //std::cout << z << "  ==  " << rightZ << "  " << z - rightZ << " smer: " << zDirection << "  --  " << (rightX - leftX) << std::endl;
         }
         else{
-            zDirection = (leftZ - rightZ)/(leftX - rightX);
-            z = rightZ + zDirection;
             for(int i = rightX; i <= leftX; i++)
-                if(zBuffer[lineInZBuffer + i] < z){
-                    SDL_RenderDrawPoint(_renderer ,i, paintLine);
-                    zBuffer[lineInZBuffer + i] = z;
-                }
-                z += zDirection;
+                SDL_RenderDrawPoint(_renderer ,i, paintLine);
+
         }
         //Posun podle vypocitaneho smeru
         leftX += leftDirection;
         rightX += rightDirection;
         //Posun na dalsi radek
         paintLine ++;
-        //Posun v hladine z pro dalsi radek
-        leftZ += leftZDirection;
-        rightZ += rightZDirection;
     }
 
-    //std::cout << "paint half: " << leftZ << "  --  " << rightZ << std::endl;//"  --  " << rightPointLine << "  x  " << leftDirection << "  --  " << rightDirection << std::endl;
-   //std::cout << "Left X: " << leftX << "  <=  " << rightX << std::endl << std::endl;
 
     // urceni ktereho bodu bylo dosazeno drive, upraveni smernice pro dalsi vykresleni
     if(paintLine >= leftPointLine){
         leftDirection = (right->x - left->x) / (right->y - left->y);
-        leftX = left->x * zoom + viewPosX;
-        leftZDirection = (right->z - left->z)/(rightPointLine - leftPointLine);
-        leftZ = left->z * zoom;
+        leftX = left->x + viewPosX;
     }
     else if(paintLine >= rightPointLine){
         rightDirection = (left->x - right->x) / (left->y - right->y);
-        rightX = right->x * zoom + viewPosX;
-        rightZDirection = ((left->z - right->z)*zoom)/(leftPointLine - rightPointLine);
-        rightZ = right->z * zoom;
+        rightX = right->x + viewPosX;
     }
 
     while (paintLine < leftPointLine || paintLine < rightPointLine){
-        int lineInZBuffer = paintLine * width;
-        float z, zDirection;
-
         if(leftX < rightX){
-            zDirection = (rightZ - leftZ)/(rightX - leftX);
-            z = leftZ + zDirection;
-            for(int i = leftX; i <= rightX; i++){
-                if(zBuffer[lineInZBuffer + i] < z){
-                    SDL_RenderDrawPoint(_renderer ,i, paintLine);
-                    zBuffer[lineInZBuffer + i] = z;
-                }
-                z += zDirection;
-            }
+            for(int i = leftX; i <= rightX; i++)
+                SDL_RenderDrawPoint(_renderer ,i, paintLine);
         }
         else{
-            zDirection = (leftZ - rightZ)/(leftX - rightX);
-            z = rightZ + zDirection;
             for(int i = rightX; i <= leftX; i++)
-                if(zBuffer[lineInZBuffer + i] < z){
-                    SDL_RenderDrawPoint(_renderer ,i, paintLine);
-                    zBuffer[lineInZBuffer + i] = z;
-                }
-                z += zDirection;
+                SDL_RenderDrawPoint(_renderer ,i, paintLine);
         }
 
         //Posun podle vypocitaneho smeru
@@ -277,15 +228,7 @@ void screen::PaintTriangle(point *normalVec){
         rightX += rightDirection;
         //Posun na dalsi radek
         paintLine ++;
-        //Posun v hladine z pro dalsi radek
-        leftZ += leftZDirection;
-        rightZ += rightZDirection;
     }
-
-    /*if(leftZ != rightZ){
-        std::cout << "Error :" << leftZ << "  --  " << rightZ << std::endl;
-        std::cout << "Contr :" << left->z * zoom << "  --  " << right->z * zoom << std::endl;
-    }*/
 }
 
 void screen::Show(){

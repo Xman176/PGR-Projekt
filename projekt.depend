@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1507557616 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\main.cpp
+1507554016 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\main.cpp
 	"rasterObject.h"
 	"screen.h"
 	"myWindow.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
 	"SDL_stdinc.h"
 	"SDL_assert.h"
@@ -36,12 +36,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_main.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_main.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_stdinc.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_stdinc.h
 	"SDL_config.h"
 	<sys/types.h>
 	<stdio.h>
@@ -70,34 +70,34 @@
 	<stdlib.h>
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_config.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_config.h
 	"SDL_platform.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_platform.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_platform.h
 	"AvailabilityMacros.h"
 	"TargetConditionals.h"
 	<winapifamily.h>
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\begin_code.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\begin_code.h
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\close_code.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\close_code.h
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_assert.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_assert.h
 	"SDL_config.h"
 	"begin_code.h"
 	<signal.h>
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_atomic.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_atomic.h
 	"SDL_stdinc.h"
 	"SDL_platform.h"
 	"begin_code.h"
 	<mbarrier.h>
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_audio.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_audio.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_endian.h"
@@ -107,24 +107,24 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_error.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_error.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_endian.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_endian.h
 	"SDL_stdinc.h"
 	<endian.h>
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_mutex.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_mutex.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_thread.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_thread.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_atomic.h"
@@ -134,18 +134,18 @@
 	<process.h>
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_rwops.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_rwops.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_clipboard.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_clipboard.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_cpuinfo.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_cpuinfo.h
 	"SDL_stdinc.h"
 	<intrin.h>
 	<intrin.h>
@@ -158,7 +158,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_events.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_events.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -172,7 +172,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_video.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_video.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -180,13 +180,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_pixels.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_pixels.h
 	"SDL_stdinc.h"
 	"SDL_endian.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_rect.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_rect.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_pixels.h"
@@ -194,7 +194,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_surface.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_surface.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -203,11 +203,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_blendmode.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_blendmode.h
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_keyboard.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_keyboard.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_keycode.h"
@@ -215,27 +215,27 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_keycode.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_keycode.h
 	"SDL_stdinc.h"
 	"SDL_scancode.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_scancode.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_scancode.h
 	"SDL_stdinc.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_mouse.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_mouse.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_joystick.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_gamecontroller.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_gamecontroller.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_rwops.h"
@@ -243,11 +243,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_quit.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_gesture.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_gesture.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -255,60 +255,60 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_touch.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_touch.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_filesystem.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_filesystem.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_haptic.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_haptic.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_joystick.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_hints.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_hints.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_loadso.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_loadso.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_log.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_log.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109970 c:\development\sdl-mingw32\include\sdl2\sdl_messagebox.h
+1506106370 c:\development\sdl-mingw32\include\sdl2\sdl_messagebox.h
 	"SDL_stdinc.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_power.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_power.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_render.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_render.h
 	"SDL_stdinc.h"
 	"SDL_rect.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_shape.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_shape.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -317,7 +317,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_system.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_system.h
 	"SDL_stdinc.h"
 	"SDL_keyboard.h"
 	"SDL_render.h"
@@ -325,41 +325,43 @@
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_timer.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_timer.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1506109971 c:\development\sdl-mingw32\include\sdl2\sdl_version.h
+1506106371 c:\development\sdl-mingw32\include\sdl2\sdl_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1508757075 c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.h
+1508753475 c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.h
 	<iostream>
 	<SDL2/SDL.h>
 	"screen.h"
 
-1508773600 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
+1508770000 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
 	"myWindow.h"
 
-1509098014 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
+1510139645 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
 	<iostream>
 	<SDL2/SDL.h>
 	<cstring>
 	<math.h>
 	"rasterObject.h"
 
-1509097863 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
+1510140019 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
 	"screen.h"
 	<math.h>
 
-1508067273 c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.h
+1510143113 c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.h
 	<iostream>
 	<cstdlib>
 	<math.h>
+	<string>
+	<fstream>
 
-1509025662 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
+1510144382 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
 	"rasterObject.h"
 
