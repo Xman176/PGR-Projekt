@@ -16,6 +16,8 @@ public:
     ~screen();
 
     void ScreenSize(int w, int h);
+    void ChangePaintType(int type);
+
     void Move(int x, int y);
     void ChangeAngle(int moveX, int moveY);
     void Zoom(int x);
@@ -27,6 +29,11 @@ public:
 
 
 private:
+    //Funkce v knihovne painterAlgorithm.h
+    void painterAlg();
+    void PaintTrianglePainter(point *normalVec);
+
+
     void SortTrianglPoint(trianglePoints* oneTriangle);
     void PaintTriangle(point *normalVec);
 
@@ -36,6 +43,8 @@ private:
     rasterObject myObject;
 
     int width, height;
+
+    int paintType;
 
     point *top, *left, *right;
 

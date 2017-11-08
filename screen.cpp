@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "painterAlgorithm.h"
 
 #include <math.h>
 
@@ -15,6 +16,8 @@ screen::screen(SDL_Renderer* _ren, int w, int h){
 
     //alokace zBufferu
     zBuffer = new float[width*height];
+
+    paintType = 0;
 }
 
 screen::~screen(){
@@ -31,6 +34,10 @@ void screen::ScreenSize(int w, int h){
     //realokace zBufferu
     delete [] zBuffer;
     zBuffer = new float[width*height];
+}
+
+void screen::ChangePaintType(int type){
+    paintType = type;
 }
 
 void screen::Move(int x, int y){
@@ -121,113 +128,15 @@ void screen::SortTrianglPoint(trianglePoints* oneTriangle){
 }
 
 
-
 void screen::PaintObject(){
+    switch(paintType){
+    case 0:
+        painterAlg();
+        break;
 
-    int objectCount = myObject.GetTrianCount();
-    trianglePoints *oneTriangle;
+    case 1:
 
-    //Vyčisteni z-Bufferu
-    for(int i = 0; i < width * height; i++)
-        zBuffer[i] = -INFINITY;
-
-    //vytvoreni promenne pro vektor normaly trojuhelniku
-    point *normalVec;
-    normalVec = new point;
-
-    //cyklus pro vykresleni kazdeho trojuhelniku
-    for(int i = 0; i < objectCount; i ++){
-        //ziskani trojuhelniku ze seznamu v objektu
-        oneTriangle = myObject.GetTriangl(i);
-
-        SortTrianglPoint(oneTriangle);
-
-        //ziskani normaly trojuhelniku
-        myObject.GetNormal(oneTriangle, normalVec);
-
-        //Vykreslit trojuhelnik
-        PaintTriangle(normalVec);
-    }
-}
-
-
-void screen::PaintTriangle(point *normalVec){
-
-    //velikost tohoto vektoru staci spocitat pri inicializaci obrazce
-    double norVecLenght = sqrt(pow(normalVec->x,2)+pow(normalVec->y,2)+pow(normalVec->z,2));
-
-    int grayColor = fabs(normalVec->z/norVecLenght) * 255;
-
-    //inicializace barvy vekresleneho trojuhleniku
-    SDL_SetRenderDrawColor(_renderer, grayColor, grayColor, grayColor, 255);
-
-    //Implementace vykresleni trojuhelniku pomoci DDA
-    double leftX = top->x + viewPosX;
-    double rightX = leftX;
-
-    //promenna pro oznaceni vykreslovaneho radku
-    int paintLine = top->y + viewPosY;
-
-    //Vypocet smernice pro 3. a 4. kvadrant
-    double leftDirection = (double)(left->x - top->x) / (double)(left->y - top->y);
-    double rightDirection = (double)(right->x - top->x) / (double)(right->y - top->y);
-
-    //vypocet radku leveho a praveho radku
-    int leftPointLine = left->y + viewPosY;
-    int rightPointLine = right->y + viewPosY;
-
-    //std::cout << "Paint line: " << paintLine << "  --  " << leftPointLine << "  --  " << rightPointLine << "  x  " << leftDirection << "  --  " << rightDirection << std::endl;
-    //std::cout << "Point top: " << top->x * zoom + viewPosX << "  --  " << top->y * zoom + viewPosY << "  Left:  " << left->x * zoom + viewPosX << "  --  " << left->y * zoom + viewPosY << "  RIGHT:  " << right->x * zoom + viewPosX << "  --  " << right->y * zoom + viewPosY << std::endl;
-    //std::cout << "Left X: " << leftX << "  <=  " << rightX << std::endl;
-    //std::cout << "Normal: " << normalVec->x << "  --  " << normalVec->y << "  --  " << normalVec->z << "  ==  " << norVecLenght << std::endl;
-    //std::cout << "Top Z: " << top->z*zoom << "  --  " << left->z*zoom << "  --  " << right->z*zoom << std::endl;
-    //std::cout << "Vector: " << leftZDirection << "  --  " << rightZDirection << "  --  " << (leftPointLine - paintLine) << "  --  " <<(rightPointLine - paintLine)<< std::endl;
-    //std::cout << "totalMove " << (leftPointLine - paintLine)*leftZDirection << "  --  " << (rightPointLine - paintLine)*rightZDirection << std::endl;
-
-    while (paintLine < leftPointLine && paintLine < rightPointLine){
-        if(leftX < rightX){
-            for(int i = leftX; i <= rightX; i++){
-                SDL_RenderDrawPoint(_renderer ,i, paintLine);
-            }
-        }
-        else{
-            for(int i = rightX; i <= leftX; i++)
-                SDL_RenderDrawPoint(_renderer ,i, paintLine);
-
-        }
-        //Posun podle vypocitaneho smeru
-        leftX += leftDirection;
-        rightX += rightDirection;
-        //Posun na dalsi radek
-        paintLine ++;
-    }
-
-
-    // urceni ktereho bodu bylo dosazeno drive, upraveni smernice pro dalsi vykresleni
-    if(paintLine >= leftPointLine){
-        leftDirection = (right->x - left->x) / (right->y - left->y);
-        leftX = left->x + viewPosX;
-    }
-    else if(paintLine >= rightPointLine){
-        rightDirection = (left->x - right->x) / (left->y - right->y);
-        rightX = right->x + viewPosX;
-    }
-
-    while (paintLine < leftPointLine || paintLine < rightPointLine){
-        if(leftX < rightX){
-            for(int i = leftX; i <= rightX; i++)
-                SDL_RenderDrawPoint(_renderer ,i, paintLine);
-        }
-        else{
-            for(int i = rightX; i <= leftX; i++)
-                SDL_RenderDrawPoint(_renderer ,i, paintLine);
-        }
-
-        //Posun podle vypocitaneho smeru
-        leftX += leftDirection;
-        rightX += rightDirection;
-        //Posun na dalsi radek
-        paintLine ++;
+        break;
     }
 }
 

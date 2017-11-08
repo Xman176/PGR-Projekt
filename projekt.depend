@@ -336,7 +336,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1508753475 c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.h
+1510151694 c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.h
 	<iostream>
 	<SDL2/SDL.h>
 	"screen.h"
@@ -344,24 +344,28 @@
 1508770000 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
 	"myWindow.h"
 
-1510139645 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
+1510151323 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
 	<iostream>
 	<SDL2/SDL.h>
 	<cstring>
 	<math.h>
 	"rasterObject.h"
 
-1510140019 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
+1510151207 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
 	"screen.h"
+	"painterAlgorithm.h"
 	<math.h>
 
-1510143113 c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.h
+1510150245 c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.h
 	<iostream>
 	<cstdlib>
 	<math.h>
 	<string>
 	<fstream>
 
-1510144382 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
+1510149352 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
 	"rasterObject.h"
+
+1510151126 c:\users\stepa\onedrive\magisterské\pgr\projekt\painteralgorithm.h
+	"screen.h"
 

@@ -6,7 +6,7 @@ rasterObject::rasterObject(){
     std::ifstream objectFile;
 
     //prozatimni cteni ze souboru
-    objectFile.open("tetrahedron.ply");
+    objectFile.open("icosahedron.ply");
     std::string line;
 
     while(getline(objectFile, line)){
@@ -18,11 +18,9 @@ rasterObject::rasterObject(){
             break;
     }
 
-    //std::cout << "Point count: "<< pointCount << std::endl;
-    //std::cout << "Trian count: "<< trianCount << std::endl;
-
+    int i;
     points = new point[pointCount];
-    for(int i = 0; i < pointCount; i++){
+    for(i = 0; i < pointCount; i++){
         getline(objectFile, line);
         int position = 0;
         points[i].x = atof(&line[position]);
@@ -38,9 +36,8 @@ rasterObject::rasterObject(){
         points[i].z = atof(&line[position]);
     }
 
-
     triangle = new trianglePoints[trianCount];
-    for(int i = 0; i < trianCount; i++){
+    for(i = 0; i < trianCount; i++){
         getline(objectFile, line);
         if(line[0] == '4')
             std::cout << "error" << std::endl;

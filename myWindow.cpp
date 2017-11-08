@@ -65,6 +65,7 @@ void myWindow::Input(){
 
             case SDL_KEYDOWN: //Udalost zmacknute klavesy
                 switch(ev.key.keysym.sym){
+                    //Posun objektu
                     case SDLK_LEFT:
                         _paintScreen->Move(-1, 0);
                         break;
@@ -77,6 +78,15 @@ void myWindow::Input(){
                     case SDLK_DOWN:
                         _paintScreen->Move(0, 1);
                         break;
+
+                    //Zmena rezimu vykreslovani
+                    case SDLK_0:
+                        _paintScreen->ChangePaintType(0);
+                        break;
+                    case SDLK_1:
+                        _paintScreen->ChangePaintType(1);
+                        break;
+
                     default:
                         break;
                 }
