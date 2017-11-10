@@ -17,6 +17,7 @@ public:
 
     void ScreenSize(int w, int h);
     void ChangePaintType(int type);
+    void ChangeBorder();
 
     void Move(int x, int y);
     void ChangeAngle(int moveX, int moveY);
@@ -33,9 +34,12 @@ private:
     void painterAlg();
     void PaintTrianglePainter(point *normalVec);
 
+    //Funkce v knihovne zBufferPaint.h
+    void paintWithZbuffer();
+    void PaintTriangleWithZbuffer(point *normalVec);
 
+    //Funkce v screen.cpp
     void SortTrianglPoint(trianglePoints* oneTriangle);
-    void PaintTriangle(point *normalVec);
 
 
     SDL_Renderer* _renderer;
@@ -45,6 +49,7 @@ private:
     int width, height;
 
     int paintType;
+    bool paintBorders;
 
     point *top, *left, *right;
 

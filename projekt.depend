@@ -341,19 +341,20 @@
 	<SDL2/SDL.h>
 	"screen.h"
 
-1508770000 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
+1510210493 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
 	"myWindow.h"
 
-1510151323 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
+1510214603 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
 	<iostream>
 	<SDL2/SDL.h>
 	<cstring>
 	<math.h>
 	"rasterObject.h"
 
-1510151207 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
+1510211734 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
 	"screen.h"
 	"painterAlgorithm.h"
+	"zBufferPaint.h"
 	<math.h>
 
 1510150245 c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.h
@@ -363,9 +364,12 @@
 	<string>
 	<fstream>
 
-1510149352 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
+1510299629 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
 	"rasterObject.h"
 
-1510151126 c:\users\stepa\onedrive\magisterské\pgr\projekt\painteralgorithm.h
+1510297930 c:\users\stepa\onedrive\magisterské\pgr\projekt\painteralgorithm.h
+	"screen.h"
+
+1510299789 c:\users\stepa\onedrive\magisterské\pgr\projekt\zbufferpaint.h
 	"screen.h"
 

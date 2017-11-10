@@ -39,6 +39,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="myWindow.cpp" />
 		<Unit filename="myWindow.h" />
+		<Unit filename="painterAlgorithm.h" />
 		<Unit filename="rasterObject.cpp" />
 		<Unit filename="rasterObject.h" />
 		<Unit filename="screen.cpp" />

@@ -3,16 +3,14 @@
 
 #include "screen.h"
 
-typedef struct paintTriangleData{
+struct paintTriangleData{
     int paintLine;
     double rightX, leftX;
     double rightDirection, leftDirection;
     int rightPointLine, leftPointLine;
 };
 
-void paintFirstHalf(SDL_Renderer *_renderer, paintTriangleData *_data){
-    //Vykresleni prvni poloviny trojuhelníku
-    while (_data->paintLine < _data->leftPointLine && _data->paintLine < _data->rightPointLine){
+void paintLineTriangle(SDL_Renderer *_renderer, paintTriangleData *_data){
         if(_data->leftX < _data->rightX){
             for(int i = _data->leftX; i <= _data->rightX; i++){
                 SDL_RenderDrawPoint(_renderer ,i, _data->paintLine);
@@ -23,34 +21,12 @@ void paintFirstHalf(SDL_Renderer *_renderer, paintTriangleData *_data){
                 SDL_RenderDrawPoint(_renderer ,i, _data->paintLine);
 
         }
-        //Posun podle vypocitaneho smeru
-        _data->leftX += _data->leftDirection;
-        _data->rightX += _data->rightDirection;
-        //Posun na dalsi radek
-        _data->paintLine ++;
-    }
-}
-
-void paintRestOfTriangl(SDL_Renderer *_renderer, paintTriangleData *_data){
-
-    //Vykreslení zbytku trojuhelníku
-    while (_data->paintLine < _data->leftPointLine || _data->paintLine < _data->rightPointLine){
-        if(_data->leftX < _data->rightX){
-            for(int i = _data->leftX; i <= _data->rightX; i++)
-                SDL_RenderDrawPoint(_renderer ,i, _data->paintLine);
-        }
-        else{
-            for(int i = _data->rightX; i <= _data->leftX; i++)
-                SDL_RenderDrawPoint(_renderer ,i, _data->paintLine);
-        }
 
         //Posun podle vypocitaneho smeru
         _data->leftX += _data->leftDirection;
         _data->rightX += _data->rightDirection;
         //Posun na dalsi radek
         _data->paintLine ++;
-    }
-
 }
 
 
@@ -105,7 +81,8 @@ void screen::PaintTrianglePainter(point *normalVec){
     _data->rightPointLine = right->y + viewPosY;
 
     //Vykresleni prvni poloviny trojuhelniku
-    paintFirstHalf(_renderer, _data);
+    while (_data->paintLine < _data->leftPointLine && _data->paintLine < _data->rightPointLine)
+        paintLineTriangle(_renderer, _data);
 
 
     // urceni ktereho bodu bylo dosazeno drive, upraveni smernice pro dalsi vykresleni
@@ -118,7 +95,17 @@ void screen::PaintTrianglePainter(point *normalVec){
         _data->rightX = right->x + viewPosX;
     }
 
-    paintRestOfTriangl(_renderer, _data);
+    //Vykresli zbytek trojuhelniku
+    while (_data->paintLine < _data->leftPointLine || _data->paintLine < _data->rightPointLine)
+        paintLineTriangle(_renderer, _data);
+
+    //Vykresli hranice jednotlivych trojuhelniku
+    if(paintBorders){
+        SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
+        SDL_RenderDrawLine(_renderer, top->x+viewPosX, top->y+viewPosY, left->x+viewPosX, left->y+viewPosY);
+        SDL_RenderDrawLine(_renderer, top->x+viewPosX, top->y+viewPosY, right->x+viewPosX, right->y+viewPosY);
+        SDL_RenderDrawLine(_renderer, right->x+viewPosX, right->y+viewPosY, left->x+viewPosX, left->y+viewPosY);
+    }
 
     delete _data;
 }

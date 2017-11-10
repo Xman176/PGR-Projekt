@@ -1,5 +1,6 @@
 #include "screen.h"
 #include "painterAlgorithm.h"
+#include "zBufferPaint.h"
 
 #include <math.h>
 
@@ -18,6 +19,7 @@ screen::screen(SDL_Renderer* _ren, int w, int h){
     zBuffer = new float[width*height];
 
     paintType = 0;
+    paintBorders = false;
 }
 
 screen::~screen(){
@@ -38,6 +40,13 @@ void screen::ScreenSize(int w, int h){
 
 void screen::ChangePaintType(int type){
     paintType = type;
+}
+
+void screen::ChangeBorder(){
+    if(paintBorders)
+        paintBorders = false;
+    else
+        paintBorders = true;
 }
 
 void screen::Move(int x, int y){
@@ -135,7 +144,7 @@ void screen::PaintObject(){
         break;
 
     case 1:
-
+        paintWithZbuffer();
         break;
     }
 }

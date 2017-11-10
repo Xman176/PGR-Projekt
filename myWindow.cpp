@@ -14,6 +14,7 @@ myWindow::myWindow(int width, int height) : _paintScreen(nullptr){
 
     SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, &_window, &_render);
     SDL_SetWindowTitle(_window, "PGR Projekt Rasterizace");
+    SDL_SetRenderDrawBlendMode(_render, SDL_BLENDMODE_NONE);
 
     closeWindow = false;
     mouseClick = false;
@@ -85,6 +86,9 @@ void myWindow::Input(){
                         break;
                     case SDLK_1:
                         _paintScreen->ChangePaintType(1);
+                        break;
+                    case SDLK_b:
+                        _paintScreen->ChangeBorder();
                         break;
 
                     default:
