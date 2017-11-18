@@ -20,6 +20,7 @@ screen::screen(SDL_Renderer* _ren, int w, int h){
 
     paintType = 0;
     paintBorders = false;
+    showSurface = true;
 }
 
 screen::~screen(){
@@ -139,14 +140,18 @@ void screen::SortTrianglPoint(trianglePoints* oneTriangle){
 
 void screen::PaintObject(){
     switch(paintType){
-    case 0:
-        painterAlg();
-        break;
+        case 0:
+            painterAlg();
+            break;
 
-    case 1:
-        paintWithZbuffer();
-        break;
+        case 1:
+            paintWithZbuffer();
+            break;
     }
+}
+
+void screen::changePaintSurface(){
+    showSurface = (showSurface == 0) ? 1 : 0;
 }
 
 void screen::Show(){

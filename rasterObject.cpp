@@ -6,7 +6,7 @@ rasterObject::rasterObject(){
     std::ifstream objectFile;
 
     //prozatimni cteni ze souboru
-    objectFile.open("hammerhead.ply");
+    objectFile.open("turbine.ply");
     std::string line;
 
     while(getline(objectFile, line)){

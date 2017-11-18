@@ -12,41 +12,7 @@ struct dataZTriangle{
     int screenWidth, screenHeight;
 };
 
-void paintLineTriangleWithZ(SDL_Renderer *_renderer, dataZTriangle *_data, float *_zBuffer){
-        float zValue, zDirection;
-        int startX, endX;
-        int lineInZBuffer = _data->paintLine * _data->screenWidth;
-
-        if(_data->leftX < _data->rightX){
-            startX = floor(_data->leftX);
-            endX = ceil(_data->rightX);
-
-            zValue = _data->leftZ;
-            zDirection = (_data->leftZ - _data->rightZ) / (startX - endX);
-        }
-        else{
-            startX = floor(_data->rightX);
-            endX = ceil(_data->leftX);
-
-            zValue = _data->rightZ;
-            zDirection = (_data->rightZ - _data->leftZ) / (startX - endX);
-
-        }
-
-        //Vykresleni jednoho radku
-        for(int i = startX; i <= endX; i++){
-            if(i > _data->screenWidth)
-                break;
-
-            if(zValue > _zBuffer[lineInZBuffer + i]){
-                SDL_RenderDrawPoint(_renderer ,i, _data->paintLine);
-                _zBuffer[lineInZBuffer + i] = zValue;
-            }
-
-            zValue += zDirection;
-        }
-
-
+void ComputeNextLine(dataZTriangle *_data){
         //Posun podle vypocitaneho smeru pro dalsi radek pixelu
         _data->leftX += _data->leftDirection;
         _data->rightX += _data->rightDirection;
@@ -57,6 +23,82 @@ void paintLineTriangleWithZ(SDL_Renderer *_renderer, dataZTriangle *_data, float
 
         //Posun na dalsi radek
         _data->paintLine ++;
+}
+
+void PaintPointBorder(SDL_Renderer *_renderer, int xPointPos, int yPointPos){
+    Uint8 r, g, b, a;
+    SDL_GetRenderDrawColor(_renderer, &r, &g, &b, &a);
+
+    //nastaveni barvy pro vykreslovani hranice a vykresli bod hranice
+    SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
+    SDL_RenderDrawPoint(_renderer ,xPointPos, yPointPos);
+
+    //Vrat zpet barvu obsahu trojuhelniku
+    SDL_SetRenderDrawColor(_renderer, r, g, b, a);
+
+
+}
+
+void paintLineTriangleWithZ(SDL_Renderer *_renderer, dataZTriangle *_data, float *_zBuffer, bool paintBorder){
+        float zValue, zDirection;
+        int startX, endX;
+        int lineInZBuffer = _data->paintLine * _data->screenWidth;
+
+        if(_data->leftX < _data->rightX){
+            startX = floor(_data->leftX);
+            endX = floor(_data->rightX);
+
+            zValue = _data->leftZ;
+            zDirection = (_data->leftZ - _data->rightZ) / (startX - endX);
+        }
+        else{
+            startX = floor(_data->rightX);
+            endX = floor(_data->leftX);
+
+            zValue = _data->rightZ;
+            zDirection = (_data->rightZ - _data->leftZ) / (startX - endX);
+
+        }
+
+        //Zrychleni pokud je konec <0 tak cely radek je mimo zobrazovaci plochu
+        if(endX < 0 || startX > _data->screenWidth){
+            ComputeNextLine(_data);
+            return;
+        }
+
+        if(paintBorder){
+            if(zValue >= _zBuffer[lineInZBuffer + startX]){
+                PaintPointBorder(_renderer, startX, _data->paintLine);
+                _zBuffer[lineInZBuffer + startX] = zValue;
+            }
+
+            zValue += zDirection;
+            startX ++;
+            endX --;
+        }
+
+        //Vykresleni jednoho radku
+        while(startX <= endX){
+            if(startX > _data->screenWidth)
+                break;
+
+            if(zValue >= _zBuffer[lineInZBuffer + startX]){
+                SDL_RenderDrawPoint(_renderer ,startX, _data->paintLine);
+                _zBuffer[lineInZBuffer + startX] = zValue;
+            }
+
+            zValue += zDirection;
+            startX ++;
+        }
+
+        if(paintBorder && startX < endX++){
+            if(zValue >= _zBuffer[lineInZBuffer + endX]){
+                PaintPointBorder(_renderer, endX, _data->paintLine);
+                _zBuffer[lineInZBuffer + endX] = zValue;
+            }
+        }
+
+        ComputeNextLine(_data);
 
 }
 
@@ -90,7 +132,7 @@ void screen::paintWithZbuffer(){
 void screen::PaintTriangleWithZbuffer(point *normalVec){
     //velikost tohoto vektoru staci spocitat pri inicializaci obrazce
     double norVecLenght = sqrt(pow(normalVec->x,2)+pow(normalVec->y,2)+pow(normalVec->z,2));
-    int grayColor = fabs(normalVec->z/norVecLenght) * 255;
+    int grayColor = fabs(normalVec->z/norVecLenght) * 191 + 64;
 
     //inicializace barvy vekresleneho trojuhleniku
     SDL_SetRenderDrawColor(_renderer, grayColor, grayColor, grayColor, 255);
@@ -125,10 +167,14 @@ void screen::PaintTriangleWithZbuffer(point *normalVec){
 
     //Vykresleni prvni poloviny trojuhelniku
     while (_data->paintLine < _data->leftPointLine && _data->paintLine < _data->rightPointLine){
+        //podminky pro nevykreslovani radku trojuhelniku mimo obrazovku
         if(_data->paintLine > height)
             return;
+        else if(_data->paintLine <= 0)
+            ComputeNextLine(_data);
+
         else
-            paintLineTriangleWithZ(_renderer, _data, zBuffer);
+            paintLineTriangleWithZ(_renderer, _data, zBuffer, paintBorders);
     }
 
 
@@ -149,10 +195,14 @@ void screen::PaintTriangleWithZbuffer(point *normalVec){
 
     //Vykresli zbytek trojuhelniku
     while (_data->paintLine < _data->leftPointLine || _data->paintLine < _data->rightPointLine){
+        //podminky pro nevykreslovani radku trojuhelniku mimo obrazovku
         if(_data->paintLine > height)
             return;
+        else if(_data->paintLine <= 0)
+            ComputeNextLine(_data);
+
         else
-            paintLineTriangleWithZ(_renderer, _data, zBuffer);
+            paintLineTriangleWithZ(_renderer, _data, zBuffer, paintBorders);
     }
 }
 

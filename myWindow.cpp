@@ -90,6 +90,9 @@ void myWindow::Input(){
                     case SDLK_b:
                         _paintScreen->ChangeBorder();
                         break;
+                    case SDLK_n:
+                        _paintScreen->changePaintSurface();
+                        break;
 
                     default:
                         break;

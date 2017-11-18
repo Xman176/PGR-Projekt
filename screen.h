@@ -18,6 +18,7 @@ public:
     void ScreenSize(int w, int h);
     void ChangePaintType(int type);
     void ChangeBorder();
+    void changePaintSurface();
 
     void Move(int x, int y);
     void ChangeAngle(int moveX, int moveY);
@@ -50,6 +51,7 @@ private:
 
     int paintType;
     bool paintBorders;
+    bool showSurface;
 
     point *top, *left, *right;
 

@@ -49,7 +49,16 @@ void screen::painterAlg(){
         myObject.GetNormal(oneTriangle, normalVec);
 
         //Vykreslit trojuhelnik
-        PaintTrianglePainter(normalVec);
+        if(showSurface)
+            PaintTrianglePainter(normalVec);
+
+        //Vykresli hranice jednotlivych trojuhelniku
+        if(paintBorders){
+            SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
+            SDL_RenderDrawLine(_renderer, top->x+viewPosX, top->y+viewPosY, left->x+viewPosX, left->y+viewPosY);
+            SDL_RenderDrawLine(_renderer, top->x+viewPosX, top->y+viewPosY, right->x+viewPosX, right->y+viewPosY);
+            SDL_RenderDrawLine(_renderer, right->x+viewPosX, right->y+viewPosY, left->x+viewPosX, left->y+viewPosY);
+        }
     }
 }
 
@@ -98,14 +107,6 @@ void screen::PaintTrianglePainter(point *normalVec){
     //Vykresli zbytek trojuhelniku
     while (_data->paintLine < _data->leftPointLine || _data->paintLine < _data->rightPointLine)
         paintLineTriangle(_renderer, _data);
-
-    //Vykresli hranice jednotlivych trojuhelniku
-    if(paintBorders){
-        SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
-        SDL_RenderDrawLine(_renderer, top->x+viewPosX, top->y+viewPosY, left->x+viewPosX, left->y+viewPosY);
-        SDL_RenderDrawLine(_renderer, top->x+viewPosX, top->y+viewPosY, right->x+viewPosX, right->y+viewPosY);
-        SDL_RenderDrawLine(_renderer, right->x+viewPosX, right->y+viewPosY, left->x+viewPosX, left->y+viewPosY);
-    }
 
     delete _data;
 }
