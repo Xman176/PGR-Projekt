@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 
 #include "screen.h"
+#include "rasterObject.h"
 
 class myWindow{
 public:
@@ -14,7 +15,7 @@ public:
 
 private:
     SDL_Window* _window;
-    bool closeWindow, mouseClick, repaint;
+    bool closeWindow, leftMouse, rightMouse, repaint;
 
     screen* _paintScreen;
 

@@ -31,13 +31,17 @@ public:
 
     void RotateX(float changeAngle);
     void RotateY(float changeAngle);
+    void RotateZ(float changeAngle);
     void Zoom(float zoomNumber);
+
+    bool objectOK;
 
 
 private:
     int pointCount;
     int trianCount;
     trianglePoints *triangle;
+
 
     point *points;
 

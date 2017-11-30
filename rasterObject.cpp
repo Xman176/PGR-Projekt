@@ -1,22 +1,62 @@
 #include "rasterObject.h"
+#include "terminal.h"
 
 rasterObject::rasterObject(){
     pointCount = 0;
+    objectOK = true;
+
+    terminal terminalData;
+    terminalData.getFileName();
 
     std::ifstream objectFile;
 
     //prozatimni cteni ze souboru
-    objectFile.open("turbine.ply");
+    objectFile.open(terminalData.fileName);
+    if(!objectFile.is_open()){
+        terminalData.writeError(NOFILE);
+        objectOK = false;
+        return;
+    }
+
     std::string line;
 
+    //konrola typu souboru a typu ulozeni dat
+    getline(objectFile, line);
+    if(line.find("ply") == std::string::npos){
+        terminalData.writeError("Nepodporovany obsah souboru. (Soubor musi zacinat radkem ply)");
+        objectOK = false;
+        return;
+    }
+    getline(objectFile, line);
+    if(line.find("format ascii 1.0") == std::string::npos){
+        terminalData.writeError("Nepodporovane formatovani souboru. (Podpora pouze ascii 1.0)");
+        objectOK = false;
+        return;
+    }
+
+    //promenne pro ziskana data z hlavicky (pozice bodu a barva) maximalne 6 hodnot
+    int dataType = 0;
+    char data[6];
+    memset(data, 0, sizeof(char)*6);
+
+    //ziskani informaci z hlavicky souboru
     while(getline(objectFile, line)){
         if(line.find("element vertex") != std::string::npos)
-            pointCount = atoi(&line[14]);
+            pointCount = atoi(&line[14]); //14 = strlen(element vertex) prevadime cilo za textem
         else if(line.find("element face") != std::string::npos)
-            trianCount = atoi(&line[12]);
+            trianCount = atoi(&line[12]); //12 = strlen(element face) prevadime cilo za textems
+        else if((line.find("property float32") != std::string::npos)){
+            if(line[18] == 0 && dataType < 6){
+                data[dataType] = line[17];    //17 = strlen(element vertex) chceme ziskat znak za retezcem
+                dataType ++;
+            }
+        }
         else if(line.find("end_header") != std::string::npos)
             break;
     }
+
+    for(int i = 0; i < dataType; i ++)
+        std::cout << data[i] << std::endl;
 
     int i;
     points = new point[pointCount];
@@ -106,6 +146,19 @@ void rasterObject::RotateX(float changeAngle){
         points[i].z = z * cosAngle + x * sinAngle;
     }
 
+}
+
+void rasterObject::RotateZ(float changeAngle){
+    float sinAngle = sin(changeAngle);
+    float cosAngle = cos(changeAngle);
+
+    for(int i = 0; i < pointCount; i++){
+        float x = points[i].x;
+        float y = points[i].y;
+
+        points[i].x = x * cosAngle - y * sinAngle;
+        points[i].y = y * cosAngle + x * sinAngle;
+    }
 }
 
 void rasterObject::Zoom(float zoomNumber){

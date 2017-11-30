@@ -1,6 +1,4 @@
 #include "screen.h"
-#include "painterAlgorithm.h"
-#include "zBufferPaint.h"
 
 #include <math.h>
 
@@ -16,7 +14,8 @@ screen::screen(SDL_Renderer* _ren, int w, int h){
     viewPosY = height / 2;
 
     //alokace zBufferu
-    zBuffer = new float[width*height];
+    _zBuffer = new float[width*height];
+    //screenField = new RGB[width*height];
 
     paintType = 0;
     paintBorders = false;
@@ -24,7 +23,7 @@ screen::screen(SDL_Renderer* _ren, int w, int h){
 }
 
 screen::~screen(){
-    delete [] zBuffer;
+    delete [] _zBuffer;
 
     SDL_DestroyRenderer(_renderer);
 }
@@ -35,8 +34,15 @@ void screen::ScreenSize(int w, int h){
     height = h;
 
     //realokace zBufferu
-    delete [] zBuffer;
-    zBuffer = new float[width*height];
+    delete [] _zBuffer;
+    _zBuffer = new float[width*height];
+
+//    delete [] screenField;
+//    screenField = new RGB[width*height];
+}
+
+bool screen::objectExist(){
+    return myObject.objectOK;
 }
 
 void screen::ChangePaintType(int type){
@@ -44,10 +50,7 @@ void screen::ChangePaintType(int type){
 }
 
 void screen::ChangeBorder(){
-    if(paintBorders)
-        paintBorders = false;
-    else
-        paintBorders = true;
+    paintBorders = (paintBorders == 0) ? 1 : 0;
 }
 
 void screen::Move(int x, int y){
@@ -69,6 +72,14 @@ void screen::ChangeAngle(int moveX, int moveY){
 
 }
 
+void screen::ZAngleZoom(int moveZ, int zoom){
+    if(zoom != 0)
+        //myObject.Zoom(1-zoom/100.0);
+
+    if(moveZ != 0)
+        myObject.RotateZ(moveZ / 100.0);
+}
+
 void screen::CleanRenderer(){
     SDL_RenderClear(_renderer);
 }
@@ -87,67 +98,8 @@ void screen::PaintBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a){
 
 }
 
-void screen::SortTrianglPoint(trianglePoints* oneTriangle){
-
-        //zjisteni nejvyssiho bodu trojuhelniku
-        if(oneTriangle->a->y <= oneTriangle->b->y){
-            if(oneTriangle->a->y <= oneTriangle->c->y)
-                top = oneTriangle->a;
-            else
-                top = oneTriangle->c;
-        }
-        else if(oneTriangle->b->y <= oneTriangle->c->y){
-            top = oneTriangle->b;
-        }
-        else{
-            top = oneTriangle->c;
-        }
-
-
-        //zjisteni leveho a praveho bodu trojuhelniku
-        if(oneTriangle->c == top){
-            if(oneTriangle->a->x < oneTriangle->b->x){
-                left = oneTriangle->a;
-                right = oneTriangle->b;
-            }
-            else{
-                left = oneTriangle->b;
-                right = oneTriangle->a;
-            }
-        }
-        else if(oneTriangle->b == top){
-            if(oneTriangle->a->x < oneTriangle->c->x){
-                left = oneTriangle->a;
-                right = oneTriangle->c;
-            }
-            else{
-                left = oneTriangle->c;
-                right = oneTriangle->a;
-            }
-        }
-        else{
-            if(oneTriangle->b->x < oneTriangle->c->x){
-                left = oneTriangle->b;
-                right = oneTriangle->c;
-            }
-            else{
-                left = oneTriangle->c;
-                right = oneTriangle->b;
-            }
-        }
-}
-
-
 void screen::PaintObject(){
-    switch(paintType){
-        case 0:
-            painterAlg();
-            break;
-
-        case 1:
-            paintWithZbuffer();
-            break;
-    }
+    PaintTriagles();
 }
 
 void screen::changePaintSurface(){

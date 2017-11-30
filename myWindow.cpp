@@ -12,16 +12,20 @@ myWindow::myWindow(int width, int height) : _paintScreen(nullptr){
         std::cout << "SDL init error:" << SDL_GetError() << std::endl;
     }
 
-    SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, &_window, &_render);
+    SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE, &_window, &_render);
     SDL_SetWindowTitle(_window, "PGR Projekt Rasterizace");
     SDL_SetRenderDrawBlendMode(_render, SDL_BLENDMODE_NONE);
 
     closeWindow = false;
-    mouseClick = false;
+    leftMouse = false;
+    rightMouse = false;
     repaint = true;
 
     _paintScreen = new screen(_render, width, height);
-    //_paintScreen.SetRenderer();
+    if(_paintScreen->objectExist())
+        SDL_ShowWindow(_window);
+    else
+        return;
 
     Loop();
 }
@@ -110,20 +114,28 @@ void myWindow::Input(){
                 break;
 
             case SDL_MOUSEMOTION: //Udalost pohybu mysi
-                if(mouseClick){
+                if(leftMouse){
                     _paintScreen->ChangeAngle(ev.motion.xrel, ev.motion.yrel);
+                    repaint = true;
+                }
+                else if(rightMouse){
+                    _paintScreen->ZAngleZoom(ev.motion.xrel, ev.motion.yrel);
                     repaint = true;
                 }
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
                 if(ev.button.button == SDL_BUTTON_LEFT)
-                    mouseClick = true;
+                    leftMouse = true;
+                else if(ev.button.button == SDL_BUTTON_RIGHT)
+                    rightMouse = true;
                 break;
 
             case SDL_MOUSEBUTTONUP:
                 if(ev.button.button == SDL_BUTTON_LEFT)
-                    mouseClick = false;
+                    leftMouse = false;
+                else if(ev.button.button == SDL_BUTTON_RIGHT)
+                    rightMouse = false;
                 break;
         }
     }

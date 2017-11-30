@@ -39,11 +39,14 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="myWindow.cpp" />
 		<Unit filename="myWindow.h" />
-		<Unit filename="painterAlgorithm.h" />
+		<Unit filename="paint.cpp" />
+		<Unit filename="painterAlgorithm.cpp" />
 		<Unit filename="rasterObject.cpp" />
 		<Unit filename="rasterObject.h" />
 		<Unit filename="screen.cpp" />
 		<Unit filename="screen.h" />
+		<Unit filename="zBufferPaint.cpp" />
+		<Unit filename="zBufferPaint.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

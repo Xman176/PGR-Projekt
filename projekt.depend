@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1507554016 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\main.cpp
+1512044128 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\main.cpp
 	"rasterObject.h"
 	"screen.h"
 	"myWindow.h"
@@ -336,40 +336,68 @@
 	"begin_code.h"
 	"close_code.h"
 
-1510151694 c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.h
+1512042622 c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.h
 	<iostream>
 	<SDL2/SDL.h>
 	"screen.h"
+	"rasterObject.h"
 
-1510842946 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
+1512046509 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\mywindow.cpp
 	"myWindow.h"
 
-1510842943 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
+1512069072 c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.h
 	<iostream>
 	<SDL2/SDL.h>
 	<cstring>
 	<math.h>
 	"rasterObject.h"
 
-1510842957 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
+1512043953 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\screen.cpp
 	"screen.h"
-	"painterAlgorithm.h"
-	"zBufferPaint.h"
 	<math.h>
 
-1510150245 c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.h
+1512043786 c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.h
 	<iostream>
 	<cstdlib>
 	<math.h>
 	<string>
 	<fstream>
 
-1510843465 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
+1512052100 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\rasterobject.cpp
 	"rasterObject.h"
+	"terminal.h"
 
 1510842863 c:\users\stepa\onedrive\magisterské\pgr\projekt\painteralgorithm.h
 	"screen.h"
 
 1510841654 c:\users\stepa\onedrive\magisterské\pgr\projekt\zbufferpaint.h
 	"screen.h"
+
+1511771892 c:\users\stepa\onedrive\magisterské\pgr\projekt\paint.h
+	<iostream>
+	<SDL2/SDL.h>
+	<cstring>
+	<math.h>
+	"rasterObject.h"
+
+1512069053 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\paint.cpp
+	"screen.h"
+
+1512043476 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\painteralgorithm.cpp
+	"screen.h"
+
+1512039399 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\zbufferpaint.cpp
+	"screen.h"
+
+1512042980 c:\users\stepa\onedrive\magisterské\pgr\projekt\main.cpp
+	"rasterObject.h"
+	"screen.h"
+	"myWindow.h"
+
+1512047071 c:\users\stepa\onedrive\magisterské\pgr\projekt\terminal.h
+	<iostream>
+	<cstring>
+
+1512047092 source:c:\users\stepa\onedrive\magisterské\pgr\projekt\terminal.cpp
+	"terminal.h"
 
