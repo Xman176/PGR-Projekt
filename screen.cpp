@@ -20,9 +20,11 @@ screen::screen(SDL_Renderer* _ren, int w, int h){
     _zBuffer = new float[width*height];
     screenField = new RGBA[width*height];
 
-    paintType = 0;
+    paintType = 1;
     paintBorders = false;
     showSurface = true;
+
+    myObject.Zoom((width/4.0)/myObject.initZoom);
 }
 
 screen::~screen(){
@@ -60,6 +62,14 @@ void screen::ChangeBorder(){
     paintBorders = (paintBorders == 0) ? 1 : 0;
 }
 
+void screen::SetBorder(bool val){
+    paintBorders = val;
+}
+
+void screen::SetSurface(bool val){
+    showSurface = val;
+}
+
 void screen::Move(int x, int y){
     viewPosX += x*10;
     viewPosY += y*10;
@@ -91,20 +101,6 @@ void screen::CleanRenderer(){
     SDL_RenderClear(_renderer);
 }
 
-
-void screen::PaintBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a){
-    //Vyplneni pozadi cernou barvou
-    SDL_SetRenderDrawColor(_renderer, r, g, b, a);
-
-    SDL_Rect rect;
-    rect.x = rect.y = 0;
-    rect.h = height;
-    rect.w = width;
-
-    SDL_RenderFillRect(_renderer, &rect);
-
-}
-
 void screen::PaintObject(){
     PaintTriagles();
 
@@ -120,7 +116,7 @@ void screen::changePaintSurface(){
     showSurface = (showSurface == 0) ? 1 : 0;
 }
 
-void screen::Show(){
-    //zobrazení vytvoøené plochy
-    SDL_RenderPresent(_renderer);
+void screen::CenterObject(){
+    viewPosX = width / 2;
+    viewPosY = height / 2;
 }

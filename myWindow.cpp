@@ -85,17 +85,34 @@ void myWindow::Input(){
                         break;
 
                     //Zmena rezimu vykreslovani
-                    case SDLK_0:
-                        _paintScreen->ChangePaintType(0);
-                        break;
                     case SDLK_1:
                         _paintScreen->ChangePaintType(1);
+                        _paintScreen->SetBorder(false);
+                        _paintScreen->SetSurface(true);
+                        break;
+                    case SDLK_2:
+                        _paintScreen->ChangePaintType(1);
+                        _paintScreen->SetBorder(true);
+                        _paintScreen->SetSurface(false);
+                        break;
+                    case SDLK_3:
+                        _paintScreen->ChangePaintType(2);
+                        _paintScreen->SetBorder(false);
+                        _paintScreen->SetSurface(true);
+                        break;
+                    case SDLK_4:
+                        _paintScreen->ChangePaintType(2);
+                        _paintScreen->SetBorder(true);
+                        _paintScreen->SetSurface(false);
                         break;
                     case SDLK_b:
                         _paintScreen->ChangeBorder();
                         break;
                     case SDLK_n:
                         _paintScreen->changePaintSurface();
+                        break;
+                    case SDLK_c:
+                        _paintScreen->CenterObject();
                         break;
 
                     default:
@@ -146,10 +163,6 @@ void myWindow::Rendering(){
 
     _paintScreen->CleanRenderer();
 
-    //_paintScreen->PaintBackground(0, 0, 0, 255);
-
     _paintScreen->PaintObject();
-
-    //_paintScreen->Show();
 
 }

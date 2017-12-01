@@ -33,6 +33,20 @@ void screen::ComputeStartLineValue(bool zVal){
         zDirectionLeft = (left->z - top->z) / (left->y - top->y);
         zDirectionRight = (right->z - top->z) / (right->y - top->y);
     }
+
+    if(myObject.colorObject && showSurface){
+        leftRed = rightRed = top->r;
+        leftGreen = rightGreen = top->g;
+        leftBlue = rightBlue = top->b;
+
+        lDirRed = (top->r - left->r) / (left->y - top->y);
+        lDirGreen = (top->g - left->g) / (left->y - top->y);
+        lDirBlue = (top->b - left->b) / (left->y - top->y);
+
+        rDirRed = (top->r - right->r) / (right->y - top->y);
+        rDirGreen = (top->g - right->g) / (right->y - top->y);
+        rDirBlue = (top->b - right->b) / (right->y - top->y);
+    }
 }
 
 void screen::ComputeContinueLineValue(bool zVal){
@@ -45,6 +59,16 @@ void screen::ComputeContinueLineValue(bool zVal){
             zDirectionLeft = (right->z - left->z) / (right->y - left->y);
             leftZ = left->z;
         }
+
+        if(myObject.colorObject){
+            leftRed = left->r;
+            leftGreen = left->g;
+            leftBlue = left->b;
+
+            rDirRed = (left->r - right->r) / (right->y - left->y);
+            rDirGreen = (left->g - right->g) / (right->y - left->y);
+            rDirBlue = (left->b - right->b) / (right->y - left->y);
+        }
     }
     else if(paintLine >= rightPointLine){
         rightDirection = (left->x - right->x) / (left->y - right->y);
@@ -53,6 +77,16 @@ void screen::ComputeContinueLineValue(bool zVal){
         if(zVal){
             zDirectionRight = (left->z - right->z) / (left->y - right->y);
             rightZ = right->z;
+        }
+
+        if(myObject.colorObject && showSurface){
+            rightRed = right->r;
+            rightGreen = right->g;
+            rightBlue = right->b;
+
+            lDirRed = (right->r - left->r) / (left->y - right->y);
+            lDirGreen = (right->g - left->g) / (left->y - right->y);
+            lDirBlue = (right->b - left->b) / (left->y - right->y);;
         }
     }
 }
@@ -143,6 +177,17 @@ void screen::ComputeNextLine(){
 
         //Posun na dalsi radek
         paintLine ++;
+
+        //prepocet barvy
+        if(myObject.colorObject && showSurface){
+            leftRed += lDirRed;
+            leftGreen += lDirGreen;
+            leftBlue += lDirBlue;
+
+            rightRed += rDirRed;
+            rightGreen += rDirGreen;
+            rightBlue += rDirBlue;
+        }
 }
 
 void screen::SortTrianglPoint(trianglePoints* oneTriangle){
@@ -220,27 +265,28 @@ void screen::PaintTriagles(){
 
         //Vykreslit trojuhelnik
         switch (paintType){
-        case 0:
-            PaintTrianglePainter(normalVec);
-            break;
         case 1:
             PaintTriangleWithZbuffer(normalVec);
             break;
+        case 2:
+            PaintTrianglePainter(normalVec);
+            break;
+
         }
 
     }
 }
 
 void screen::paintPoint(int xPosition, int yPosition){
-    if(xPosition >= width || xPosition < 0 || yPosition >= height || yPosition < 0)
-        return;
+    if((xPosition < width && xPosition >= 0) && (yPosition < height-1 && yPosition >= 0)){
+        int position = xPosition + width * yPosition;
 
-    int position = xPosition + width * yPosition;
+        screenField[position].R = Red;
+        screenField[position].G = Green;
+        screenField[position].B = Blue;
+        screenField[position].A = Alpha;
 
-    screenField[position].R = Red;
-    screenField[position].G = Green;
-    screenField[position].B = Blue;
-    screenField[position].A = Alpha;
+    }
 }
 
 

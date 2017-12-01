@@ -28,16 +28,17 @@ public:
     void ChangePaintType(int type);
     void ChangeBorder();
     void changePaintSurface();
+    void SetBorder(bool val);
+    void SetSurface(bool val);
 
     void Move(int x, int y);
     void ChangeAngle(int moveX, int moveY);
     void ZAngleZoom(int moveZ, int zoom);
     void Zoom(int x);
+    void CenterObject();
 
     void CleanRenderer();
-    void PaintBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     void PaintObject();
-    void Show();
 
 
 private:
@@ -77,6 +78,12 @@ private:
 
     //Body pro serazeni trojuhelnik k vykresleni
     point *top, *left, *right;
+
+    //parametry pro vypocet barvy
+    float lDirRed, lDirGreen, lDirBlue;
+    float rDirRed, rDirGreen, rDirBlue;
+    float leftRed, leftGreen, leftBlue;
+    float rightRed, rightGreen, rightBlue;
 
     // parametry pro vykreslovani trojuhelniku a posuvu
     int paintLine;

@@ -11,10 +11,12 @@ typedef struct point{
     float x;
     float y;
     float z;
+    int r;
+    int g;
+    int b;
 }point;
 
 typedef struct trianglePoints{
-    //int countConnect;
     point *a;
     point *b;
     point *c;
@@ -35,6 +37,8 @@ public:
     void Zoom(float zoomNumber);
 
     bool objectOK;
+    float initZoom;
+    bool colorObject;
 
 
 private:
@@ -42,8 +46,12 @@ private:
     int trianCount;
     trianglePoints *triangle;
 
-
     point *points;
+
+    std::ifstream objectFile;
+
+    void getPoints(int dataType, char *data);
+    void getTriagles();
 
 };
 
