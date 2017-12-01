@@ -45,7 +45,8 @@ void screen::PaintLineTriangle(){
     //Pri nevykreslovani plochy se vykreslí pouze hranice
     if(showSurface){
         while(startX <= endX && startX < width){
-            SDL_RenderDrawPoint(_renderer ,startX, paintLine);
+            paintPoint(startX, paintLine);
+            //SDL_RenderDrawPoint(_renderer ,startX, paintLine);
             startX ++;
         }
     }
@@ -67,7 +68,8 @@ void screen::PaintTrianglePainter(point *normalVec){
     int grayColor = fabs(normalVec->z/norVecLenght) * 255;
 
     //inicializace barvy vekresleneho trojuhleniku
-    SDL_SetRenderDrawColor(_renderer, grayColor, grayColor, grayColor, 255);
+    Red = grayColor; Green = grayColor; Blue = grayColor; Alpha = 255;
+    //SDL_SetRenderDrawColor(_renderer, grayColor, grayColor, grayColor, 255);
 
     ComputeStartLineValue(false);
 

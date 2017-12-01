@@ -8,7 +8,7 @@
 myWindow::myWindow(int width, int height) : _paintScreen(nullptr){
     SDL_Renderer* _render;
 
-    if(SDL_Init(SDL_INIT_VIDEO) < 0){
+   if(SDL_Init(SDL_INIT_VIDEO) < 0){
         std::cout << "SDL init error:" << SDL_GetError() << std::endl;
     }
 
@@ -146,10 +146,10 @@ void myWindow::Rendering(){
 
     _paintScreen->CleanRenderer();
 
-    _paintScreen->PaintBackground(0, 0, 0, 255);
+    //_paintScreen->PaintBackground(0, 0, 0, 255);
 
     _paintScreen->PaintObject();
 
-    _paintScreen->Show();
+    //_paintScreen->Show();
 
 }

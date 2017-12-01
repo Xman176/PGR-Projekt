@@ -50,7 +50,8 @@ void screen::PaintLineTriangleWithZ(){
             break;
 
         if(zValue > _zBuffer[lineInZBuffer + startX]){
-            SDL_RenderDrawPoint(_renderer ,startX, paintLine);
+            paintPoint(startX, paintLine);
+            //SDL_RenderDrawPoint(_renderer ,startX, paintLine);
             _zBuffer[lineInZBuffer + startX] = zValue;
         }
 
@@ -78,7 +79,8 @@ void screen::PaintTriangleWithZbuffer(point *normalVec){
     }
 
     //inicializace barvy vekresleneho trojuhleniku
-    SDL_SetRenderDrawColor(_renderer, grayColor, grayColor, grayColor, 255);
+    Red = grayColor; Green = grayColor; Blue = grayColor; Alpha = 255;
+    //SDL_SetRenderDrawColor(_renderer, grayColor, grayColor, grayColor, 255);
 
     //Vypocet pocatecni hodnot posuvu pro jednotlivé radky
     ComputeStartLineValue(true);

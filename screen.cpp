@@ -5,6 +5,9 @@
 screen::screen(SDL_Renderer* _ren, int w, int h){
     _renderer = _ren;
 
+    _texture = SDL_CreateTexture(_renderer,
+                SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, w, h);
+
     //nastaveni sirtky okna
     width = w;
     height = h;
@@ -15,7 +18,7 @@ screen::screen(SDL_Renderer* _ren, int w, int h){
 
     //alokace zBufferu
     _zBuffer = new float[width*height];
-    //screenField = new RGB[width*height];
+    screenField = new RGBA[width*height];
 
     paintType = 0;
     paintBorders = false;
@@ -37,8 +40,12 @@ void screen::ScreenSize(int w, int h){
     delete [] _zBuffer;
     _zBuffer = new float[width*height];
 
-//    delete [] screenField;
-//    screenField = new RGB[width*height];
+    delete [] screenField;
+    screenField = new RGBA[width*height];
+
+    SDL_DestroyTexture(_texture);
+    _texture = SDL_CreateTexture(_renderer,
+                SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, w, h);
 }
 
 bool screen::objectExist(){
@@ -100,6 +107,13 @@ void screen::PaintBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a){
 
 void screen::PaintObject(){
     PaintTriagles();
+
+    SDL_UpdateTexture(_texture, NULL, screenField, width*sizeof(RGBA));
+
+    SDL_RenderClear(_renderer);
+    SDL_RenderCopy(_renderer, _texture, NULL, NULL);
+    SDL_RenderPresent(_renderer);
+
 }
 
 void screen::changePaintSurface(){

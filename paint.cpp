@@ -74,19 +74,22 @@ void screen::PaintLineBorder(int *startX, int endBorder){
     }
 
 
-    Uint8 r, g, b, a;
-    SDL_GetRenderDrawColor(_renderer, &r, &g, &b, &a);
-
+    Uint8 r, g, b;
+    r = Red; g = Green; b = Blue;
+    //SDL_GetRenderDrawColor(_renderer, &r, &g, &b, &a);
+    Red = 255; Green = 0; Blue = 0;
     //nastaveni barvy pro vykreslovani hranice a vykresli bod hranice
-    SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
+    //SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
 
     do{
-        SDL_RenderDrawPoint(_renderer ,*startX, paintLine);
+        paintPoint(*startX, paintLine);
+        //SDL_RenderDrawPoint(_renderer ,*startX, paintLine);
         (*startX)++;
     }while(*startX < endBorder);
 
     //Vrat zpet barvu obsahu trojuhelniku
-    SDL_SetRenderDrawColor(_renderer, r, g, b, a);
+    Red = r; Green = g; Blue = b;
+    //SDL_SetRenderDrawColor(_renderer, r, g, b, a);
 }
 
 void screen::PaintLineBorder(int *startX, float *zValue, float zDirection, int endBorder){
@@ -106,15 +109,17 @@ void screen::PaintLineBorder(int *startX, float *zValue, float zDirection, int e
     }
 
     int lineInZBuffer = paintLine * width;
-    Uint8 r, g, b, a;
-    SDL_GetRenderDrawColor(_renderer, &r, &g, &b, &a);
-
+    Uint8 r, g, b;
+    r = Red; g = Green; b = Blue;
+    //SDL_GetRenderDrawColor(_renderer, &r, &g, &b, &a);
+    Red = 255; Green = 0; Blue = 0;
     //nastaveni barvy pro vykreslovani hranice a vykresli bod hranice
-    SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
+    //SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
 
     do{
         if(*zValue >= _zBuffer[lineInZBuffer + *startX]){
-                SDL_RenderDrawPoint(_renderer ,*startX, paintLine);
+                 paintPoint(*startX, paintLine);
+                //SDL_RenderDrawPoint(_renderer ,*startX, paintLine);
                 _zBuffer[lineInZBuffer + *startX] = *zValue;
         }
 
@@ -122,7 +127,8 @@ void screen::PaintLineBorder(int *startX, float *zValue, float zDirection, int e
         (*startX)++;
     }while(*startX < endBorder);
     //Vrat zpet barvu obsahu trojuhelniku
-    SDL_SetRenderDrawColor(_renderer, r, g, b, a);
+    Red = r; Green = g; Blue = b;
+    //SDL_SetRenderDrawColor(_renderer, r, g, b, a);
 }
 
 
@@ -200,6 +206,8 @@ void screen::PaintTriagles(){
     if(paintType == 1)
         std::fill_n(_zBuffer, width*height, -INFINITY);
 
+    memset(screenField, 0, sizeof(RGBA)*width*height);
+
     //cyklus pro vykresleni kazdeho trojuhelniku
     for(int i = 0; i < objectCount; i ++){
         //ziskani trojuhelniku ze seznamu v objektu
@@ -223,10 +231,16 @@ void screen::PaintTriagles(){
     }
 }
 
-/*void screen::paintPoint(Uint8 R, Uint8 G, Uint8 B, int xPosition, int yPosition){
+void screen::paintPoint(int xPosition, int yPosition){
+    if(xPosition >= width || xPosition < 0 || yPosition >= height || yPosition < 0)
+        return;
 
+    int position = xPosition + width * yPosition;
 
-
-}*/
+    screenField[position].R = Red;
+    screenField[position].G = Green;
+    screenField[position].B = Blue;
+    screenField[position].A = Alpha;
+}
 
 

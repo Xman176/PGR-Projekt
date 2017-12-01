@@ -8,17 +8,19 @@
 #include <math.h>
 
 #include "rasterObject.h"
-/*
-typedef struct RGB{
-    Uint8 R;
-    Uint8 G;
+
+typedef struct RGBA{
     Uint8 B;
-};*/
+    Uint8 G;
+    Uint8 R;
+    Uint8 A;
+}RGBA;
 
 class screen{
 public:
     screen(SDL_Renderer* _ren, int w, int h);
     ~screen();
+
 
     bool objectExist();
 
@@ -49,8 +51,9 @@ private:
     int width, height;
 
     SDL_Renderer* _renderer;
+    SDL_Texture* _texture;
     float *_zBuffer;
-    //RGB *screenField;
+    RGBA *screenField;
 
     rasterObject myObject;
 
@@ -62,6 +65,7 @@ private:
     void ComputeNextLine();
     void PaintTriagles();
     void SortTrianglPoint(trianglePoints* oneTriangle);
+    void paintPoint(int xPosition, int yPosition);
 
     //Funkce v knihovne painterAlgorithm.cpp
     void PaintLineTriangle();
@@ -76,6 +80,7 @@ private:
 
     // parametry pro vykreslovani trojuhelniku a posuvu
     int paintLine;
+    Uint8 Red, Green, Blue, Alpha;
     double rightX, leftX;
     double rightDirection, leftDirection;
     int rightPointLine, leftPointLine;
