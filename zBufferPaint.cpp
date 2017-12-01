@@ -8,7 +8,6 @@ void screen::PaintLineTriangleWithZ(){
     int startX, endX;
     int startDirection, endDirection;
     int lineInZBuffer = paintLine * width;
-    float blueInc, redInc, greenInc;
 
     if(leftX < rightX){
         startX = floor(leftX);
@@ -18,13 +17,6 @@ void screen::PaintLineTriangleWithZ(){
 
         zValue = leftZ;
         zDirection = (leftZ - rightZ) / (startX - endX);
-
-        if(myObject.colorObject && showSurface){
-            Red = leftRed; Green = leftGreen; Blue = leftBlue;
-            redInc = (leftRed - rightRed) / (startX - endX);
-            greenInc = (leftGreen - rightGreen) / (startX - endX);
-            blueInc = (leftBlue - rightBlue) / (startX - endX);
-        }
     }
     else{
         startX = floor(rightX);
@@ -35,12 +27,6 @@ void screen::PaintLineTriangleWithZ(){
         zValue = rightZ;
         zDirection = (rightZ - leftZ) / (startX - endX);
 
-        if(myObject.colorObject && showSurface){
-            Red = rightRed; Green = rightGreen; Blue = rightBlue;
-            redInc = (rightRed - leftRed) / (startX - endX);
-            greenInc = (rightGreen - leftGreen) / (startX - endX);
-            blueInc = (rightBlue - leftBlue) / (startX - endX);
-        }
     }
 
     if(leftDirection == INFINITY || rightDirection == INFINITY)
@@ -65,18 +51,11 @@ void screen::PaintLineTriangleWithZ(){
 
         if(zValue > _zBuffer[lineInZBuffer + startX]){
             paintPoint(startX, paintLine);
-            //SDL_RenderDrawPoint(_renderer ,startX, paintLine);
             _zBuffer[lineInZBuffer + startX] = zValue;
         }
 
         zValue += zDirection;
         startX ++;
-
-        if(myObject.colorObject && showSurface){
-            Red += redInc;
-            Green += greenInc;
-            Blue += blueInc;
-        }
     }
 
     if(paintBorders && startX < width){
@@ -99,8 +78,8 @@ void screen::PaintTriangleWithZbuffer(point *normalVec){
     }
 
     //inicializace barvy vekresleneho trojuhleniku
-    Red = grayColor; Green = grayColor; Blue = grayColor; Alpha = 255;
-
+    Red = grayColor; Green = grayColor; Blue = grayColor;
+    //SDL_SetRenderDrawColor(_renderer, grayColor, grayColor, grayColor, 255);
 
     //Vypocet pocatecni hodnot posuvu pro jednotlivé radky
     ComputeStartLineValue(true);

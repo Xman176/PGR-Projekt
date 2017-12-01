@@ -4,7 +4,6 @@
 rasterObject::rasterObject(){
     pointCount = 0;
     objectOK = true;
-    colorObject = false;
 
     terminal terminalData;
     terminalData.getFileName();
@@ -50,30 +49,10 @@ rasterObject::rasterObject(){
                 dataType ++;
             }
         }
-        else if((line.find("property Uint8") != std::string::npos)){
-            if(line[16] == 0 && dataType < 6){
-                data[dataType] = line[15];    //15 = strlen(property Uint8) chceme ziskat znak za retezcem
-                dataType ++;
-            }
-        }
         else if(line.find("end_header") != std::string::npos)
             break;
     }
 
-    //zkontrolovani vsech barev
-    bool r = false;
-    bool g = false;
-    bool b = false;
-    for(int i = 0; i < dataType; i++){
-        if(data[i] == 'r' || data[i] == 'R')
-            r = true;
-        if(data[i] == 'g' || data[i] == 'G')
-            g = true;
-        if(data[i] == 'b' || data[i] == 'B')
-            b = true;
-    }
-    if(r && g && b)
-        colorObject = true;
 
     getPoints(dataType, data);
 
@@ -193,23 +172,9 @@ void rasterObject::getPoints(int dataType, char *data){
                 case 'Z':
                     points[i].z = atof(&line[position]);
                 break;
-
-                case 'r':
-                case 'R':
-                    points[i].r = atoi(&line[position]);
-                break;
-
-                case 'g':
-                case 'G':
-                    points[i].g = atoi(&line[position]);
-                break;
-
-                case 'b':
-                case 'B':
-                    points[i].b = atoi(&line[position]);
-                break;
             }
-            for(; line[position ++] != ' ' && position < line.length(); )
+
+            for(; line[position ++] != ' '; )
                 ;
         }
     }

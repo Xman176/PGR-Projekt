@@ -11,9 +11,6 @@ typedef struct point{
     float x;
     float y;
     float z;
-    int r;
-    int g;
-    int b;
 }point;
 
 typedef struct trianglePoints{
@@ -38,7 +35,6 @@ public:
 
     bool objectOK;
     float initZoom;
-    bool colorObject;
 
 
 private:
